@@ -55,19 +55,22 @@
     width: 100%; max-width: 560px;
     min-height: 100dvh;
     display: flex; flex-direction: column;
-    align-items: flex-start; justify-content: center;
-    padding: 5rem 2rem 7rem;
+    align-items: flex-start;
+    padding: 5rem 2rem 3rem;
   }
-  .header {
+  .topbar {
     position: fixed;
-    top: max(1.6rem, env(safe-area-inset-top, 1.6rem));
-    left: 50%; transform: translateX(-50%);
-    text-align: center; white-space: nowrap;
+    top: 0; left: 0; right: 0;
+    padding: max(1.4rem, env(safe-area-inset-top, 1.4rem)) 1.6rem 0.8rem;
+    display: flex; align-items: flex-start; justify-content: space-between;
     opacity: 0; animation: fadeUp 1s ease 0.3s forwards; z-index: 20;
   }
-  .header-title { font-size: clamp(9px, 2.2vw, 11px); letter-spacing: 0.4em; color: var(--muted2); }
-  .header-sub   { font-size: clamp(8px, 2vw, 10px); letter-spacing: 0.3em; color: var(--accent-dim); margin-top: 3px; }
+  .header { text-align: left; }
+  .header-title { font-size: clamp(9px, 2.5vw, 11px); letter-spacing: 0.4em; color: var(--muted2); white-space: nowrap; }
+  .header-sub   { font-size: clamp(8px, 2vw, 10px); letter-spacing: 0.3em; color: var(--accent-dim); margin-top: 3px; white-space: nowrap; }
   .display {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
     width: 100%;
     opacity: 0; animation: fadeUp 1s ease 0.8s forwards;
   }
@@ -98,11 +101,10 @@
   }
   .location-line.visible { opacity: 1; transform: translateY(0); }
   .footer {
-    position: fixed;
-    bottom: max(2rem, env(safe-area-inset-bottom, 2rem));
-    left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    z-index: 20; opacity: 0; animation: fadeUp 1s ease 1.4s forwards;
+    width: 100%;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+    padding: 3rem 0 max(1rem, env(safe-area-inset-bottom, 1rem));
+    opacity: 0; animation: fadeUp 1s ease 1.4s forwards;
   }
   .btn {
     background: transparent;
@@ -124,15 +126,15 @@
   .btn:disabled { opacity: 0.4; cursor: default; }
   .status-txt { font-size: clamp(8px, 2vw, 9px); letter-spacing: 0.22em; color: var(--muted); white-space: nowrap; }
   .clock {
-    position: fixed;
-    top: max(1.6rem, env(safe-area-inset-top, 1.6rem));
-    right: 2rem;
     font-size: clamp(10px, 2.5vw, 12px);
     letter-spacing: 0.2em;
     color: var(--muted2);
-    z-index: 20;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.3s forwards;
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  @media (max-width: 600px) {
+    .topbar { flex-direction: column; gap: 4px; }
+    .clock  { font-size: 10px; }
   }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(8px); }
@@ -143,10 +145,12 @@
 <body>
 <canvas id="rain"></canvas>
 <div class="page" role="main">
-  <div class="clock" id="clock"></div>
-  <div class="header">
-    <div class="header-title">龙族 · Dragon Raja</div>
-    <div class="header-sub">遭遇生成器</div>
+  <div class="topbar">
+    <div class="header">
+      <div class="header-title">龙族 · Dragon Raja</div>
+      <div class="header-sub">遭遇生成器</div>
+    </div>
+    <div class="clock" id="clock"></div>
   </div>
   <div class="display" id="display" aria-live="polite">
     <div class="section-label">— 角色</div>
